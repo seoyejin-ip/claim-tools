@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>청구항 작성도구 seoyeye</title>
+<title>청구항 작성도구 seoyejin</title>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLE6099H55"></script>
 <script>
@@ -200,7 +200,7 @@
 <body>
 
 <header>
-  <h1>청구항 작성도구 seoyeye <small>번호·인용 자동 관리</small></h1>
+  <h1>청구항 작성도구 seoyejin <small>번호·인용 자동 관리</small></h1>
   <button id="btnHelp">사용방법</button>
   <button id="btnSettings">서식 설정</button>
   <button id="btnSaveJson" title="작업 상태를 파일로 저장 — 브라우저를 닫아도 이어서 작업할 수 있습니다">임시저장</button>
@@ -214,10 +214,17 @@
 </header>
 
 <div class="settings-bar" id="settingsBar">
+  <label>인용 표기
+    <select id="selCiteStyle">
+      <option value="je">제1 항에 있어서,</option>
+      <option value="cheong">청구항 1에 있어서,</option>
+    </select>
+  </label>
   <label>종속항 서두 문구
     <input type="text" id="inpDepPrefix" title="{N}에 인용하는 항 번호가 자동으로 들어갑니다">
   </label>
-  <span style="color:#98a0b0">{N} 자리에 인용 항 번호가 자동 삽입됩니다. 예: 제{N} 항에 있어서, → 제3 항에 있어서,</span>
+  <label title="미리보기·복사·docx에서 청구항과 청구항 사이에 빈 줄을 넣습니다"><input type="checkbox" id="chkBlank" checked> 청구항 사이 빈 줄</label>
+  <span style="color:#98a0b0">{N} 자리에 인용 항 번호가 자동 삽입됩니다. 예: 제{N} 항에 있어서, → 제3 항에 있어서, · 청구항 {N}에 있어서, → 청구항 3에 있어서,</span>
 </div>
 
 <div class="help-bar" id="helpBar">
@@ -273,7 +280,7 @@ const APPARATUS_BODY =
 const MEDIUM_TEMPLATE = '{인용}에 따른 방법을 컴퓨터에서 실행시키기 위한 프로그램을 기록한 컴퓨터로 읽을 수 있는 기록 매체.';
 
 const state = {
-  settings: { depPrefix: '제{N} 항에 있어서,' },
+  settings: { depPrefix: '제{N} 항에 있어서,', blankBetween: true },
   claims: []
 };
 
@@ -338,14 +345,20 @@ function countDescendants(node){
 /* 여러 항 번호를 특허 관행에 맞는 인용구로 합친다.
    1개: "제1 항" / 연속 3개 이상: "제1 항 내지 제3 항 중 어느 한 항"
    그 외: "제1 항 또는 제3 항" / "제1 항, 제3 항 또는 제5 항" */
+function citeStyle(){
+  return state.settings.depPrefix.includes('청구항 {N}') ? 'cheong' : 'je';
+}
+function claimLabel(n){
+  return citeStyle() === 'cheong' ? `청구항 ${n}` : `제${n} 항`;
+}
 function citePhrase(nums){
   nums = [...new Set(nums)].filter(n => n !== undefined).sort((a,b)=>a-b);
   if(nums.length === 0) return '';
-  if(nums.length === 1) return `제${nums[0]} 항`;
+  if(nums.length === 1) return claimLabel(nums[0]);
   const contiguous = nums.every((n,i)=> i===0 || n === nums[i-1]+1);
   if(contiguous && nums.length >= 3)
-    return `제${nums[0]} 항 내지 제${nums[nums.length-1]} 항 중 어느 한 항`;
-  const parts = nums.map(n=>`제${n} 항`);
+    return `${claimLabel(nums[0])} 내지 ${claimLabel(nums[nums.length-1])} 중 어느 한 항`;
+  const parts = nums.map(claimLabel);
   if(parts.length === 2) return parts.join(' 또는 ');
   return parts.slice(0,-1).join(', ') + ' 또는 ' + parts[parts.length-1];
 }
@@ -368,6 +381,7 @@ function depPrefixText(node){
   /* 기본 템플릿("제{N} 항에 있어서,")이면 인용구 전체를 치환,
      사용자가 형식을 바꿔 "제{N} 항"이 없으면 {N}에 대표 번호만 치환 */
   if(tpl.includes('제{N} 항')) return tpl.replace('제{N} 항', phrase);
+  if(tpl.includes('청구항 {N}')) return tpl.replace('청구항 {N}', phrase);
   return tpl.replaceAll('{N}', String(Math.min(...nums)));
 }
 function mediumCite(node){
@@ -378,9 +392,9 @@ function mediumCite(node){
   const a = nm.get(target.id);
   if(node.mediumMode === 'range'){
     const b = a + countDescendants(target);
-    return (b > a) ? `제${a} 항 내지 제${b} 항 중 어느 한 항` : `제${a} 항`;
+    return (b > a) ? `${claimLabel(a)} 내지 ${claimLabel(b)} 중 어느 한 항` : claimLabel(a);
   }
-  return `제${a} 항`;
+  return claimLabel(a);
 }
 function claimFullText(node){
   if(node.kind === 'dep'){
@@ -844,7 +858,8 @@ function buildHtmlParas(){
     return `<p style="${style}">` + (text.trim() === '' ? '&nbsp;' : escapeHtml(text)) + '</p>';
   };
   let out = P('【청구범위】', 'center') + P('', 'body');
-  flatten().forEach(e=>{
+  flatten().forEach((e, i)=>{
+    if(i > 0 && state.settings.blankBetween !== false) out += P('', 'body');
     out += P(`【청구항 ${e.number}】`, 'head');
     const t = claimFullText(e.node);
     if(t.trim() === '') out += P('', 'body');
@@ -895,7 +910,8 @@ function para(text, indent, center=false){
 }
 function buildDocumentXml(){
   let body = para('【청구범위】', false, true) + para('', true);
-  flatten().forEach(e=>{
+  flatten().forEach((e, i)=>{
+    if(i > 0 && state.settings.blankBetween !== false) body += para('', true);
     body += para(`【청구항 ${e.number}】`, false);
     const t = claimFullText(e.node);
     const lines = t.split('\n');
@@ -958,6 +974,8 @@ document.getElementById('fileJson').addEventListener('change', async e=>{
     flatten().forEach(x=>{ const n = parseInt(x.node.id.slice(1)); if(n>max) max=n; });
     SEQ = max + 1;
     document.getElementById('inpDepPrefix').value = state.settings.depPrefix;
+    syncCiteSelect();
+    chkBlank.checked = state.settings.blankBetween !== false;
     render();
     toast('임시저장 파일을 불러왔습니다');
   }catch(err){ toast('파일을 읽을 수 없습니다 — 이 도구의 임시저장(JSON) 파일인지 확인해 주세요'); }
@@ -1003,11 +1021,13 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
     /* 2) 인용 서두를 해석해 트리로 복원 */
     const byNum = new Map();
     const roots = [];
+    let sawCheong = false;
     for(const c of found){
       let kind = 'plain', parentNum = null, extras = [], lines = c.lines;
       const first = lines[0] || '';
-      if(/^제\s*\d+\s*항/.test(first) && /있어서/.test(first)){
-        let nums = [...first.matchAll(/제\s*(\d+)\s*항/g)].map(x=>parseInt(x[1]));
+      if(/^(제\s*\d+\s*항|청구항\s*\d+)/.test(first) && /있어서/.test(first)){
+        if(/^청구항/.test(first)) sawCheong = true;
+        let nums = [...first.matchAll(/제\s*(\d+)\s*항|청구항\s*(\d+)/g)].map(x=>parseInt(x[1] ?? x[2]));
         if(/내지/.test(first) && nums.length === 2){
           const [a,b] = nums; nums = [];
           for(let n=a; n<=b; n++) nums.push(n);
@@ -1029,6 +1049,11 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
         } else { node.kind = 'plain'; roots.push(node); }
       } else roots.push(node);
     }
+    if(sawCheong && !state.settings.depPrefix.includes('청구항 {N}')){
+      state.settings.depPrefix = '청구항 {N}에 있어서,';
+      inpPrefix.value = state.settings.depPrefix;
+      syncCiteSelect();
+    }
     state.claims = roots;
     render();
     toast(`청구항 ${found.length}개를 불러왔습니다 — 번호와 인용 관계를 한 번 확인해 주세요`);
@@ -1045,11 +1070,23 @@ document.getElementById('btnHelp').addEventListener('click', ()=>{
   document.getElementById('helpBar').classList.toggle('open');
 });
 const inpPrefix = document.getElementById('inpDepPrefix');
+const selCiteStyle = document.getElementById('selCiteStyle');
 inpPrefix.value = state.settings.depPrefix;
-inpPrefix.addEventListener('change', ()=>{
-  state.settings.depPrefix = inpPrefix.value || '제{N} 항에 있어서,';
+function syncCiteSelect(){ selCiteStyle.value = citeStyle(); }
+selCiteStyle.addEventListener('change', ()=>{
+  state.settings.depPrefix = selCiteStyle.value === 'cheong' ? '청구항 {N}에 있어서,' : '제{N} 항에 있어서,';
+  inpPrefix.value = state.settings.depPrefix;
   render();
 });
+inpPrefix.addEventListener('change', ()=>{
+  state.settings.depPrefix = inpPrefix.value || '제{N} 항에 있어서,';
+  syncCiteSelect();
+  render();
+});
+syncCiteSelect();
+const chkBlank = document.getElementById('chkBlank');
+chkBlank.checked = state.settings.blankBetween !== false;
+chkBlank.addEventListener('change', ()=>{ state.settings.blankBetween = chkBlank.checked; });
 
 document.getElementById('btnAddIndep').addEventListener('click', ()=>{
   state.claims.push(newClaim('plain', ''));
