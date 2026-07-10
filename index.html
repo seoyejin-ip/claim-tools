@@ -223,6 +223,7 @@
 
 <div class="settings-bar" id="settingsBar">
   <label title="미리보기·복사·docx에서 청구항과 청구항 사이에 빈 줄을 넣습니다"><input type="checkbox" id="chkBlank" checked> 청구항 사이 빈 줄</label>
+  <label title="끄면 서두와 본문이 한 줄로 이어집니다. 예: 제1 항에 있어서, 상기 ~"><input type="checkbox" id="chkPrefixNl" checked> 서두 뒤 줄바꿈</label>
   <span style="color:#98a0b0">종속항 서두 문구(예: "제1 항에 있어서,")는 각 종속항의 파란 서두 줄을 클릭해 바로 수정할 수 있고, 한 곳을 고치면 모든 종속항에 같은 표기가 적용됩니다.</span>
 </div>
 
@@ -279,7 +280,7 @@ const APPARATUS_BODY =
 const MEDIUM_TEMPLATE = '{인용}에 따른 방법을 컴퓨터에서 실행시키기 위한 프로그램을 기록한 컴퓨터로 읽을 수 있는 기록 매체.';
 
 const state = {
-  settings: { depPrefix: '제{N} 항에 있어서,', blankBetween: true },
+  settings: { depPrefix: '제{N} 항에 있어서,', blankBetween: true, prefixNewline: true },
   claims: []
 };
 
@@ -412,7 +413,8 @@ function mediumCite(node){
 function claimFullText(node){
   if(node.kind === 'dep'){
     const pre = depPrefixText(node);
-    return pre + (node.body ? '\n' + node.body : '');
+    const joiner = state.settings.prefixNewline === false ? ' ' : '\n';
+    return pre + (node.body ? joiner + node.body : '');
   }
   if(node.kind === 'medium'){
     return node.body.replaceAll('{인용}', mediumCite(node));
@@ -1032,6 +1034,7 @@ document.getElementById('fileJson').addEventListener('change', async e=>{
     flatten().forEach(x=>{ const n = parseInt(x.node.id.slice(1)); if(n>max) max=n; });
     SEQ = max + 1;
     chkBlank.checked = state.settings.blankBetween !== false;
+    chkPrefixNl.checked = state.settings.prefixNewline !== false;
     render();
     toast('임시저장 파일을 불러왔습니다');
   }catch(err){ toast('파일을 읽을 수 없습니다 — 이 도구의 임시저장(JSON) 파일인지 확인해 주세요'); }
@@ -1078,17 +1081,17 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
     const byNum = new Map();
     const roots = [];
     let styleSeen = null;
+    let sawSameLine = null;
     for(const c of found){
       let kind = 'plain', parentNum = null, extras = [], lines = c.lines;
       const first = lines[0] || '';
-      if(/^(제\s*\d+\s*항|청구항\s*\d+)/.test(first) && /있어서/.test(first)){
-        if(styleSeen === null){
-          let sm = first.match(/^청구항(\s*)\d+/);
-          if(sm) styleSeen = `청구항${sm[1]}{N}에 있어서,`;
-          else if((sm = first.match(/^제(\s*)\d+(\s*)항/))) styleSeen = `제${sm[1]}{N}${sm[2]}항에 있어서,`;
-        }
-        let nums = [...first.matchAll(/제\s*(\d+)\s*항|청구항\s*(\d+)/g)].map(x=>parseInt(x[1] ?? x[2]));
-        if(/내지/.test(first) && nums.length === 2){
+      const ci = first.indexOf(',');
+      const prefixPart = ci >= 0 ? first.slice(0, ci + 1) : first;
+      const restPart = ci >= 0 ? first.slice(ci + 1).trim() : '';
+      if(/^(제\s*\d+\s*항|청구항\s*\d+)/.test(prefixPart) && /있어서|대하여/.test(prefixPart)){
+        if(styleSeen === null) styleSeen = templateFromExample(prefixPart);
+        let nums = [...prefixPart.matchAll(/제\s*(\d+)\s*항|청구항\s*(\d+)/g)].map(x=>parseInt(x[1] ?? x[2]));
+        if(/내지/.test(prefixPart) && nums.length === 2){
           const [a,b] = nums; nums = [];
           for(let n=a; n<=b; n++) nums.push(n);
         }
@@ -1096,6 +1099,8 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
         if(nums.length){
           kind = 'dep'; parentNum = nums[0]; extras = nums.slice(1);
           lines = lines.slice(1); /* 서두는 자동 생성되므로 본문에서 제외 */
+          if(restPart) lines = [restPart, ...lines]; /* 서두와 같은 줄에 있던 본문은 보존 */
+          if(sawSameLine === null) sawSameLine = (restPart !== '');
         }
       }
       const node = { id: uid(), kind, body: lines.join('\n'), children: [] };
@@ -1111,6 +1116,10 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
     }
     if(styleSeen && styleSeen !== state.settings.depPrefix){
       state.settings.depPrefix = styleSeen;
+    }
+    if(sawSameLine !== null){
+      state.settings.prefixNewline = !sawSameLine;
+      chkPrefixNl.checked = state.settings.prefixNewline !== false;
     }
     state.claims = roots;
     render();
@@ -1130,6 +1139,9 @@ document.getElementById('btnHelp').addEventListener('click', ()=>{
 const chkBlank = document.getElementById('chkBlank');
 chkBlank.checked = state.settings.blankBetween !== false;
 chkBlank.addEventListener('change', ()=>{ state.settings.blankBetween = chkBlank.checked; });
+const chkPrefixNl = document.getElementById('chkPrefixNl');
+chkPrefixNl.checked = state.settings.prefixNewline !== false;
+chkPrefixNl.addEventListener('change', ()=>{ state.settings.prefixNewline = chkPrefixNl.checked; });
 
 document.getElementById('btnAddIndep').addEventListener('click', ()=>{
   state.claims.push(newClaim('plain', ''));
