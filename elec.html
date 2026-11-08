@@ -219,29 +219,124 @@
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important;}
   }
+
+.claim-editor{white-space:pre-wrap;overflow-wrap:anywhere;min-height:40px;padding:4px 6px;font-size:14.5px;line-height:1.8;border:1px solid transparent;border-radius:5px;outline:none;}
+.claim-editor:focus{border-color:var(--accent);background:#fdfefe;}
+.claim-editor:empty:before{content:attr(data-placeholder);color:#b6bcc8;}
+.claim-editor [data-change=del]{color:#b42318;text-decoration:line-through;background:#fff0ee;}
+.claim-editor [data-change=ins]{color:#b42318;text-decoration:underline;background:#fff0ee;}
+.comment-panel{margin-top:12px;padding-top:12px;border-top:1px solid #edf0f4;}
+.comment-panel[hidden]{display:none;}
+.comment-list{display:grid;gap:10px;}
+.comment-item{padding:14px;background:#fff;border:1px solid #e3e7ee;border-radius:10px;box-shadow:0 2px 7px #24334d06;font-family:Arial,"Noto Sans KR",sans-serif;font-size:12px;}
+.comment-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.comment-status{font-size:11px;font-weight:600;color:#64748b;letter-spacing:.02em;}
+.comment-author-label{display:flex;align-items:center;gap:7px;color:#8b95a5;font-size:11px;}
+.comment-author{width:116px;max-width:100%;padding:4px 7px;border:1px solid transparent;border-radius:5px;background:#f5f7fa;color:#344054;font:inherit;font-size:12px;}
+.comment-author:hover{border-color:#d9e0e9;}
+.comment-author:focus{outline:none;border-color:#99a9bf;background:#fff;}
+.comment-quote{border-left:2px solid #c9d2df;padding:2px 0 2px 9px;margin-bottom:10px;color:#7b8595;font-size:11px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:70px;overflow:auto;}
+.comment-item textarea{display:block;min-height:64px;width:100%;padding:9px 10px;border:1px solid #e8ecf2;border-radius:7px;background:#fafbfd;color:#344054;font:inherit;font-size:13px;line-height:1.7;overflow:hidden;}
+.comment-item textarea::placeholder{color:#a4acb9;}
+.comment-item textarea:focus{outline:none;border-color:#a6b4c8;background:white;}
+.comment-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px;}
+.comment-actions .mini{border-radius:6px;padding:5px 11px;font-size:11px;}
+.comment-actions .danger{margin-right:auto;background:transparent;border-color:transparent;color:#929baa;}
+.comment-actions .danger:hover{color:#b42318;background:#fff4f2;}
+.comment-actions .primary{background:#34445c;border-color:#34445c;color:white;}
+.comment-actions .primary:hover{background:#25354c;}
+
+#btnTrack.track-toggle{display:inline-flex;align-items:center;gap:9px;background:#f5f6f8;border-color:#dfe3e9;color:#7a8494;}
+#btnTrack.is-on{background:#fff0ee;border-color:#f0b5ae;color:#b42318;}
+.track-badge{font-size:9px;font-weight:800;line-height:1.5;letter-spacing:.05em;border-radius:4px;padding:1px 5px;background:#e3e7ed;color:#6b7687;}
+.is-on .track-badge{background:#b42318;color:#fff;}
+.review-toolbar{flex:0 0 100%;display:flex;align-items:center;flex-wrap:wrap;gap:9px 0;margin-top:5px;padding:11px 0 2px;border-top:1px solid #e7ebf1;}
+.review-cluster{display:flex;align-items:center;gap:6px;padding:0 13px;border-left:1px solid #e1e6ee;}
+.review-toggle-cluster{padding-left:0;border-left:0;gap:12px;}
+.review-section-title{font-size:11px;font-weight:700;color:#58677d;}
+.review-group-label{font-size:10px;color:#8a95a6;margin-right:2px;}
+.review-toolbar button{font-size:11px;padding:5px 9px;border-radius:5px;background:#f8fafc;border-color:#e1e6ee;}
+.review-toolbar button:hover{background:#edf1f6;}
+.tracking-status{margin-left:auto;padding:0 2px 0 12px;font-size:10px;color:#929cac;}
+@media(max-width:720px){.review-toolbar{gap:10px 0;}.review-cluster{padding:0 9px;}.review-toggle-cluster{flex-basis:100%;padding-left:0;}.review-toolbar .review-cluster:nth-child(2){border-left:0;padding-left:0;}.tracking-status{flex-basis:100%;margin-left:0;padding-left:0;}}
+
+#reviewMenu.review-toolbar{gap:0;padding-top:8px;}
+#reviewMenu .review-toggle-cluster{flex-basis:auto;padding-right:0;}
+#btnReviewExpand{margin-left:3px;width:27px;height:27px;padding:4px;border:1px solid transparent;border-radius:5px;background:transparent;color:#8792a3;display:inline-flex;align-items:center;justify-content:center;}
+#btnReviewExpand svg{width:18px;height:18px;display:block;pointer-events:none;}
+#btnReviewExpand:hover{background:#edf0f5;color:#47576d;}
+#btnReviewExpand:focus-visible{outline:2px solid #8799b2;outline-offset:2px;}
+#btnReviewExpand[aria-expanded="true"]{background:#e9edf3;border-color:#d8e0ea;color:#47576d;}
+#reviewActions{display:flex;flex-wrap:wrap;align-items:center;gap:9px 0;flex:1;}
+#reviewActions[hidden]{display:none!important;}
+#reviewActions{flex:0 1 auto;gap:8px;margin-left:10px;}
+#reviewActions .review-cluster{border:1px solid #e1e6ee;border-radius:7px;padding:4px 5px;gap:3px;background:#f7f8fb;}
+#reviewActions .review-cluster:last-child{background:#eef2f7;border-color:#d7dfe9;}
+#reviewActions .review-group-label{font-size:10px;font-weight:700;min-width:30px;text-align:center;color:#65748b;margin:0 4px;}
+#reviewActions button{font-size:11px;padding:4px 7px;background:white;border-color:transparent;}
+#reviewActions button:hover{border-color:#cdd6e3;background:#fff;}
+.revision-margin-toggle{position:static;flex:0 0 24px;width:24px;height:24px;padding:4px;margin-left:-3px;border:0;border-radius:5px;background:transparent;color:#98a1af;display:inline-flex;align-items:center;justify-content:center;}
+.revision-margin-toggle svg{width:16px;height:16px;display:block;pointer-events:none;}
+.revision-margin-toggle[aria-pressed="true"]{background:#f0f3f7;color:#59697e;}
+.revision-margin-toggle[aria-pressed="true"] .revision-eye-slash{display:none;}
+.revision-margin-toggle:hover{background:#e9edf3;color:#34445b;}
+.revision-margin-toggle:focus-visible{outline:2px solid #8799b2;outline-offset:2px;}
+.revision-margin-toggle[hidden]{display:none;}
+@media(max-width:720px){#reviewActions{margin:8px 0 0;flex-basis:100%;padding:0;}}
+
+.app-titlebar{display:flex;align-items:center;gap:7px;flex:0 0 100%;padding-bottom:8px;border-bottom:1px solid #edf0f4;}
+.app-titlebar h1{margin-right:auto;}
+.app-titlebar button{font-size:11px;padding:5px 9px;}
+.document-tools{display:flex;align-items:center;flex-wrap:wrap;gap:12px;}
+.document-tool-group{display:flex;align-items:center;gap:6px;}
+.document-tool-group+.document-tool-group{border-left:1px solid #e1e6ee;padding-left:12px;}
+.tool-category{font-size:10px;font-weight:700;color:#8490a2;margin-right:2px;}
+.document-tool-group button{font-size:12px;padding:5px 10px;}
+header #reviewMenu.review-toolbar{flex:1 1 auto;width:auto;border-top:0;border-left:1px solid #e1e6ee;margin:0 0 0 4px;padding:0 0 0 12px;}
+header #reviewActions{flex-basis:auto;}
+@media(max-width:880px){header #reviewMenu.review-toolbar{flex-basis:100%;border-left:0;border-top:1px solid #edf0f4;padding:8px 0 0;margin:2px 0 0;}header #reviewActions{flex-basis:auto;}.document-tools{gap:10px;}}
+@media(max-width:460px){.document-tools{gap:8px;}.document-tool-group+.document-tool-group{padding-left:0;border:0;}.document-tool-group button{font-size:11px;padding:5px 8px;}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>청구항 작성도구 <small>번호·인용 자동 관리</small></h1>
-  <button id="btnHelp">사용방법</button>
-  <button id="btnSettings">서식 설정</button>
-  <button id="btnSaveJson" title="작업 상태를 파일로 저장 — 브라우저를 닫아도 이어서 작업할 수 있습니다">임시저장</button>
-  <button id="btnLoadJson">임시저장 불러오기</button>
-  <input type="file" id="fileJson" accept=".json" hidden>
-  <button id="btnLoadDocx" class="ghost" title="워드에서 수정한 .docx를 가져올 때만 사용하세요">워드 불러오기</button>
-  <input type="file" id="fileDocx" accept=".docx" hidden>
-  <button id="btnPreview">미리보기</button>
-  <button id="btnCopy">전체 복사</button>
-  <button class="primary" id="btnDocx">.docx 다운로드</button>
+  <div class="app-titlebar"><h1>청구항 작성도구</h1><button id="btnSettings">서식 설정</button><button id="btnHelp">사용방법</button></div>
+  <div class="document-tools">
+    <div class="document-tool-group" role="group" aria-label="Word 파일">
+      <span class="tool-category">Word</span>
+      <button id="btnLoadDocx" title="Word 파일에서 청구범위와 작업 상태를 불러옵니다">불러오기</button>
+      <button class="primary" id="btnDocx">다운로드</button>
+      <input type="file" id="fileDocx" accept=".docx" hidden>
+    </div>
+    <div class="document-tool-group" role="group" aria-label="내용 확인">
+      <button id="btnPreview">미리보기</button><button id="btnCopy">전체 복사</button>
+    </div>
+  </div>
+  <section id="reviewMenu" class="review-toolbar" aria-label="변경 추적 및 검토">
+    <div class="review-cluster review-toggle-cluster">
+      <button type="button" id="btnTrack" class="track-toggle" aria-pressed="false"><span>변경내용 추적</span><span class="track-badge">OFF</span></button>
+    </div>
+    <button type="button" id="btnReviewExpand" class="review-expand" aria-expanded="false" aria-controls="reviewActions" aria-label="검토 도구 펼치기" title="검토 도구 펼치기"><svg viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><circle cx="5" cy="10" r="1.3"/><circle cx="10" cy="10" r="1.3"/><circle cx="15" cy="10" r="1.3"/></svg></button>
+    <div id="reviewActions" hidden>
+    <div class="review-cluster" role="group" aria-label="선택 영역 변경 처리">
+      <span class="review-group-label">선택</span>
+      <button type="button" id="btnAcceptSelected">수락</button>
+      <button type="button" id="btnRejectSelected">되돌리기</button>
+    </div>
+    <div class="review-cluster" role="group" aria-label="전체 변경 처리">
+      <span class="review-group-label">전체</span>
+      <button type="button" id="btnAccept">수락</button>
+      <button type="button" id="btnReject">되돌리기</button>
+    </div>
+    </div>
+  </section>
 </header>
 
 <div class="settings-bar" id="settingsBar">
-  <label title="미리보기·복사·docx에서 청구항과 청구항 사이에 빈 줄을 넣습니다"><input type="checkbox" id="chkBlank" checked> 청구항 사이 빈 줄</label>
-  <label title="끄면 서두와 본문이 한 줄로 이어집니다. 예: 제1 항에 있어서, 상기 ~"><input type="checkbox" id="chkPrefixNl" checked> 서두 뒤 줄바꿈</label>
-  <label title="종속항을 내려가며 작성하는 동안 왼쪽 독립항이 화면에 계속 붙어 있습니다"><input type="checkbox" id="chkSticky" checked> 독립항 화면 고정</label>
-  <span style="color:#98a0b0">종속항 서두 문구(예: "제1 항에 있어서,")는 각 종속항의 파란 서두 줄을 클릭해 바로 수정할 수 있고, 한 곳을 고치면 모든 종속항에 같은 표기가 적용됩니다.</span>
+  <label title="미리보기/복사/docx에서 청구항과 청구항 사이에 한 줄을 띄웁니다."><input type="checkbox" id="chkBlank" checked> 청구항 사이 띄우기</label>
+  <label title="체크를 해제하면 서두와 본문이 한 줄로 이어집니다. 예: 제1 항에 있어서, 상기 ~"><input type="checkbox" id="chkPrefixNl" checked> 서두 뒤 줄바꿈</label>
+  <label title="스크롤 시 왼쪽 독립항의 위치가 고정됩니다."><input type="checkbox" id="chkSticky" checked> 독립항 화면 고정</label>
 </div>
 
 <div class="help-bar" id="helpBar">
@@ -252,18 +347,18 @@
     <li><b>[종속항의 종속항]</b> "＋ 이 항의 종속항" 버튼을 누르면 종속항이 추가됩니다.</li>
     <li><b>[다중인용]</b> 종속항 카드의 "＋인용" 버튼으로 인용 항을 추가하면 "제1 항 또는 제3 항에 있어서,"로 합쳐지고, 연속된 3개 이상이면 "제1 항 내지 제3 항 중 어느 한 항에 있어서," 형태로 자동 변환됩니다.</li>
     <li><b>[독립항 따라오기]</b> 종속항을 아래로 스크롤하면 왼쪽 독립항 카드가 화면에 함께 이동합니다. 다음 독립항 구간에 들어가면 해당 독립항으로 변경됩니다. 끄려면 "서식 설정 → 독립항 화면 고정" 체크를 해제하세요.</li>
+    <li><b>[제2항 독립항]</b> 각 독립항의 “＋ 독립항 추가”를 누르면 바로 다음 번호에 삽입됩니다. 기존 종속항의 인용 관계는 유지됩니다. 독립항 그룹의 ↑↓ 이동을 사용하면 일반 그룹 순서로 돌아갑니다.</li>
+    <li><b>[변경 추적]</b> “변경내용 추적”을 클릭하면 ON 상태로 변경됩니다. ... 버튼을 클릭하여 선택 영역과 전체 변경을 적용할 수 있습니다. Word의 실제 변경 추적으로 저장됩니다. 청구항의 눈 버튼을 클릭하면 변경내용 추적을 적용한 청구항을 확인할 수 있습니다.</li>
     <li><b>[내보내기]</b> 최종본은 ".docx 다운로드"를 이용하면 서식이 유지됩니다.</li>
-    <li><b>[워드 불러오기]</b> 워드에서 수정한 .docx를 다시 가져올 때 사용하는 보조 기능입니다. 평소 작업을 이어서 할 때는 "임시저장 불러오기"를 사용하세요.</li>
-    <li><b>[작업 보관]</b> 작업을 중간에 멈출 때는 "임시저장"으로 파일을 받아두고, 다음에 "임시저장 불러오기"로 이어서 작업하세요.</li>
+    <li><b>[워드 불러오기]</b> 이 도구에서 다운로드한 Word 파일에는 청구항 구조·설정·작성 중 메모도 함께 보관됩니다. Word에서 내용을 수정한 경우에는 수정된 문서를 우선하여 불러옵니다.</li>
+    <li><b>[작업 보관]</b> Word 다운로드로 작업을 저장하고, Word 불러오기로 이어서 작성하세요. 저장하지 않고 창을 닫으면 작업이 사라질 수 있습니다.</li>
   </ul>
 </div>
 
 <main>
   <div class="col-heads"><div>독립항</div><div>종속항 (드래그하여 인용 항 변경)</div></div>
   <div id="groups"></div>
-  <div class="add-row" style="margin-top:16px">
-    <button id="btnAddIndep">＋ 독립항 추가</button>
-  </div>
+
 </main>
 
 <dialog id="dlgPreview">
@@ -326,9 +421,13 @@ function flatten(){
   const out = [];
   const walk = (node, parent) => {
     out.push({ node, parent });
+    state.claims.filter(c=>c.afterIndependentId===node.id).forEach(c=>walk(c,null));
     node.children.forEach(ch => walk(ch, node));
   };
-  state.claims.forEach(c => walk(c, null));
+  state.claims.filter(c=>!c.afterIndependentId || !state.claims.some(n=>n.id===c.afterIndependentId)).forEach(c => walk(c, null));
+  // 트리의 인용 관계와 별도로 제2항의 위치를 지정한다.
+  const second = out.findIndex(e => e.node.id === state.secondIndependentId && !e.parent);
+  if(second > 0) out.splice(1, 0, out.splice(second, 1)[0]);
   out.forEach((e,i)=> e.number = i+1);
   return out;
 }
@@ -425,8 +524,7 @@ function mediumCite(node){
   if(!target) return '';
   const a = nm.get(target.id);
   if(node.mediumMode === 'range'){
-    const b = a + countDescendants(target);
-    return (b > a) ? `${claimLabel(a)} 내지 ${claimLabel(b)} 중 어느 한 항` : claimLabel(a);
+    return citePhrase(flatten().filter(e => isDescendant(e.node.id, target)).map(e => e.number));
   }
   return claimLabel(a);
 }
@@ -448,6 +546,8 @@ function claimFullText(node){
 const $groups = document.getElementById('groups');
 
 function render(){
+  reconcilePausedTracking();
+  syncTracking();
   /* 구조 정규화: 인용할 상위 항이 없어져 최상위로 올라온 종속항은
      독립항으로 전환한다 (표시 라벨·서두 문구·버튼 구성이 함께 바뀜) */
   state.claims.forEach(c => { if(c.kind === 'dep') c.kind = 'plain'; });
@@ -521,6 +621,9 @@ function renderCard(node, nm, isIndep){
   const card = document.createElement('div');
   card.className = 'card ' + (isIndep ? 'indep ' : '') + 'kind-' + node.kind;
   card.dataset.id = node.id;
+  const reviewToggle=btn('',toggleRevisionMarkup,'revision-margin-toggle');
+  reviewToggle.type='button';reviewToggle.hidden=true;
+  reviewToggle.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/><path class="revision-eye-slash" d="m4 4 16 16"/></svg>';
 
   /* 머리줄 */
   const head = document.createElement('div');
@@ -537,6 +640,7 @@ function renderCard(node, nm, isIndep){
   no.className = 'claim-no doc-serif';
   no.textContent = `【청구항 ${nm.get(node.id)}】`;
   head.appendChild(no);
+  head.appendChild(reviewToggle);
 
   const chip = document.createElement('span');
   chip.className = 'kind-chip';
@@ -554,21 +658,14 @@ function renderCard(node, nm, isIndep){
     const cite = document.createElement('div');
     cite.className = 'cite-line doc-serif editable';
     cite.title = '클릭하면 서두 문구를 수정할 수 있습니다 (모든 종속항에 적용)';
-    cite.innerHTML = escapeHtml(depPrefixText(node)) + '<span class="auto-tag">자동 · 클릭하여 수정</span>';
+    cite.innerHTML = escapeHtml(depPrefixText(node)) + '<span class="auto-tag">클릭하여 수정</span>';
     cite.addEventListener('click', ()=> editPrefixInline(cite, node));
     card.appendChild(cite);
   }
 
   /* 본문 */
-  const ta = document.createElement('textarea');
-  ta.className = 'doc-serif';
-  ta.value = node.body;
-  ta.placeholder = node.kind === 'dep' ? '종속항 본문 입력…'
-                : node.kind === 'method' ? '방법 청구항 본문 입력… (…하는 단계; 를 포함하는, 방법.)'
-                : '본문 입력…';
-  ta.addEventListener('input', ()=>{ node.body = ta.value; autoGrow(ta); });
-  card.appendChild(ta);
-  requestAnimationFrame(()=>autoGrow(ta));
+  card.appendChild(createClaimEditor(node));
+  const commentPanel=createCommentPanel(node,card);
 
   /* 기록매체: 인용 대상·방식 + 결과 미리보기 */
   if(node.kind === 'medium'){
@@ -669,6 +766,8 @@ function renderCard(node, nm, isIndep){
     foot.appendChild(dn);
   }
   foot.appendChild(Object.assign(document.createElement('span'),{className:'spacer'}));
+  foot.appendChild(commentPanel.addButton);
+  if(isIndep) foot.appendChild(btn('＋ 독립항 추가', ()=>addIndependentAfter(node)));
   if(node.kind === 'dep'){
     foot.appendChild(btn('＋ 위에 항 삽입', ()=>{ insertSibling(node, 0); }));
     foot.appendChild(btn('＋ 아래에 항 삽입', ()=>{ insertSibling(node, 1); }));
@@ -678,6 +777,7 @@ function renderCard(node, nm, isIndep){
     render();
   }));
   card.appendChild(foot);
+  card.appendChild(commentPanel);
 
   /* 카드 자체를 드롭 대상으로: 놓으면 이 항의 종속항이 됨 */
   const hint = document.createElement('div');
@@ -685,6 +785,7 @@ function renderCard(node, nm, isIndep){
   hint.textContent = '여기에 놓으면 이 항을 인용하는 종속항이 됩니다';
   card.appendChild(hint);
   makeCardDroppable(card, node);
+  syncRevisionMargin(card,node);
 
   return card;
 }
@@ -781,6 +882,8 @@ function reattach(nodeId, newParentId, index=null){
 function moveTop(i, d){
   const [c] = state.claims.splice(i,1);
   state.claims.splice(i+d,0,c);
+  state.secondIndependentId = null;
+  state.claims.forEach(c=>delete c.afterIndependentId);
   render();
 }
 
@@ -993,6 +1096,8 @@ function para(text, indent, center=false){
   return `<w:p><w:pPr><w:spacing w:line="528" w:lineRule="auto"/>${ind}${jc}${rpr}</w:pPr>${run}</w:p>`;
 }
 function buildDocumentXml(){
+  reconcilePausedTracking();
+  if(state.tracking) return buildTrackedDocumentXml();
   let body = para('【청구범위】', false, true) + para('', true);
   flatten().forEach((e, i)=>{
     if(i > 0 && state.settings.blankBetween !== false) body += para('', true);
@@ -1016,6 +1121,7 @@ document.getElementById('btnDocx').addEventListener('click', async ()=>{
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
 <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
 <Default Extension="xml" ContentType="application/xml"/>
+<Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/>
 <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
 </Types>`);
   zip.file('_rels/.rels',
@@ -1025,8 +1131,18 @@ document.getElementById('btnDocx').addEventListener('click', async ()=>{
 </Relationships>`);
   zip.file('word/_rels/document.xml.rels',
 `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>`);
-  zip.file('word/document.xml', buildDocumentXml());
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdSettings" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/></Relationships>`);
+  zip.file('word/settings.xml', `<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">${trackingOn() ? '<w:trackRevisions/>' : ''}</w:settings>`);
+  const reviewComments=exportComments();
+  zip.file('word/document.xml', attachWordComments(buildDocumentXml(),reviewComments));
+  if(reviewComments.length){
+    zip.file('word/comments.xml',commentsXml(reviewComments));
+    const ct=await zip.file('[Content_Types].xml').async('string');
+    zip.file('[Content_Types].xml',ct.replace('</Types>','<Override PartName="/word/comments.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml"/></Types>'));
+    const rel=await zip.file('word/_rels/document.xml.rels').async('string');
+    zip.file('word/_rels/document.xml.rels',rel.replace('</Relationships>','<Relationship Id="rIdComments" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments" Target="comments.xml"/></Relationships>'));
+  }
+  await storeWorkInWord(zip);
   const blob = await zip.generateAsync({type:'blob', mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -1034,36 +1150,6 @@ document.getElementById('btnDocx').addEventListener('click', async ()=>{
   a.click();
   URL.revokeObjectURL(a.href);
   toast('청구범위.docx 다운로드 완료');
-});
-
-/* ---------- 임시저장 / 불러오기 (JSON) ---------- */
-document.getElementById('btnSaveJson').addEventListener('click', ()=>{
-  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = '청구항_임시저장.json';
-  a.click(); URL.revokeObjectURL(a.href);
-  toast('작업 상태를 임시저장 파일로 내려받았습니다');
-});
-document.getElementById('btnLoadJson').addEventListener('click', ()=> document.getElementById('fileJson').click());
-document.getElementById('fileJson').addEventListener('change', async e=>{
-  const f = e.target.files[0]; if(!f) return;
-  try{
-    const data = JSON.parse(await f.text());
-    if(!data.claims) throw new Error();
-    state.claims = data.claims;
-    state.settings = Object.assign({depPrefix:'제{N} 항에 있어서,'}, data.settings);
-    /* uid 충돌 방지 */
-    let max = 0;
-    flatten().forEach(x=>{ const n = parseInt(x.node.id.slice(1)); if(n>max) max=n; });
-    SEQ = max + 1;
-    chkBlank.checked = state.settings.blankBetween !== false;
-    chkPrefixNl.checked = state.settings.prefixNewline !== false;
-    applySticky();
-    render();
-    toast('임시저장 파일을 불러왔습니다');
-  }catch(err){ toast('파일을 읽을 수 없습니다 — 이 도구의 임시저장(JSON) 파일인지 확인해 주세요'); }
-  e.target.value = '';
 });
 
 /* ---------- 워드(.docx) 불러오기 ----------
@@ -1080,10 +1166,9 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
     const entry = zip.file('word/document.xml');
     if(!entry) throw new Error('no-doc');
     const xml = await entry.async('string');
+    if(await restoreWorkFromWord(zip))return;
     const dom = new DOMParser().parseFromString(xml, 'application/xml');
-    const paras = [...dom.getElementsByTagName('w:p')].map(p =>
-      [...p.getElementsByTagName('w:t')].map(t=>t.textContent).join('')
-    );
+    const paras = wordParagraphs(dom,'accepted');
 
     /* 1) 청구항 블록으로 분리 */
     const found = []; let cur = null;
@@ -1097,10 +1182,11 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
         continue;
       }
       if(/^【\s*청구범위\s*】/.test(text)) continue;
-      if(cur && text !== '') cur.lines.push(text);
+      if(cur) cur.lines.push(raw);
     }
+    found.forEach((c,i)=>{if(i<found.length-1 && c.lines.at(-1)==='')c.lines.pop();});
     if(found.length === 0){ toast('청구항을 찾지 못했습니다 — 【청구항 N】 형식의 문서인지 확인해 주세요'); return; }
-    if(!confirm(`문서에서 청구항 ${found.length}개를 찾았습니다.\n현재 작성 중인 내용을 이 문서 내용으로 교체할까요?\n(필요하면 먼저 "임시저장"으로 현재 작업을 보관하세요)`)) return;
+    if(!confirm(`문서에서 청구항 ${found.length}개를 찾았습니다.\n현재 작성 중인 내용을 이 문서 내용으로 교체할까요?\n(필요하면 먼저 Word 다운로드로 현재 작업을 보관하세요)`)) return;
 
     /* 2) 인용 서두를 해석해 트리로 복원 */
     const byNum = new Map();
@@ -1147,6 +1233,17 @@ document.getElementById('fileDocx').addEventListener('change', async e=>{
       chkPrefixNl.checked = state.settings.prefixNewline !== false;
     }
     state.claims = roots;
+    state.secondIndependentId = null;
+    // 제2항 독립항이 있는 문서는 같은 번호 순서를 복원한다.
+    const importedSecond = byNum.get(found[1]?.num);
+    if(importedSecond && roots.includes(importedSecond)) state.secondIndependentId = importedSecond.id;
+    for(let i=1;i<found.length;i++){const n=byNum.get(found[i].num),prev=byNum.get(found[i-1].num);if(roots.includes(n)&&roots.includes(prev))n.afterIndependentId=prev.id;}
+    if(roots.some(n=>n.afterIndependentId))state.secondIndependentId=null;
+    state.tracking = null;
+    restoreUnchangedClaimTypes(zip,found,byNum);
+    await importReviewData(zip,xml,byNum,found);
+    applySticky();
+    syncTracking();
     render();
     toast(`청구항 ${found.length}개를 불러왔습니다 — 번호와 인용 관계를 한 번 확인해 주세요`);
   }catch(err){
@@ -1189,17 +1286,544 @@ syncStickyTop();
 window.addEventListener('resize', syncStickyTop);
 if(window.ResizeObserver) new ResizeObserver(syncStickyTop).observe($header);
 
-document.getElementById('btnAddIndep').addEventListener('click', ()=>{
-  state.claims.push(newClaim('plain', ''));
-  render();
-});
-
 let toastTimer;
 function toast(msg){
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(()=> t.classList.remove('show'), 2600);
+}
+
+
+/* 변경 추적: 시작 시점의 기준본과 현재 문단을 비교한다. */
+function snapshotWork(){
+  return JSON.parse(JSON.stringify({claims:state.claims, settings:state.settings, secondIndependentId:state.secondIndependentId || null}));
+}
+function documentRows(){
+  const rows = [{text:'【청구범위】',center:true},{text:'',indent:true}];
+  flatten().forEach((e,i)=>{
+    if(i && state.settings.blankBetween !== false) rows.push({text:'',indent:true});
+    rows.push({text:`【청구항 ${e.number}】`});
+    claimFullText(e.node).split('\n').forEach(text=>rows.push({text,indent:true}));
+  });
+  return rows;
+}
+function syncTracking(){
+  const on=trackingOn(),button=document.getElementById('btnTrack');
+  const badge=button.querySelector('.track-badge'),label=on?'ON':'OFF';
+  // Keep the button's children stable during blur/composition and pointer events.
+  if(badge.textContent!==label)badge.textContent=label;
+  button.classList.toggle('is-on',on);button.classList.remove('primary');
+  button.setAttribute('aria-pressed',String(on));button.title=on?'클릭하면 새 변경 기록을 중지합니다':'클릭하면 새 변경 기록을 시작합니다';
+
+}
+function beginTracking(){
+  if(state.tracking) {state.tracking.enabled=true;state.tracking.paused=null;syncTracking();return;}
+  state.tracking = {enabled:true,base:snapshotWork(), rows:documentRows(), date:new Date().toISOString()};
+  syncTracking(); render(); toast('현재 내용을 기준으로 변경 추적을 시작했습니다');
+}
+// 문단 단위 LCS. 추가·삭제·이동 및 자동 번호·인용 변경을 함께 기록한다.
+function revisionRows(){
+  reconcilePausedTracking();
+  const a=state.tracking?.rows || documentRows(), b=documentRows();
+  const key=r=>JSON.stringify([r.text,!!r.indent,!!r.center]);
+  const ak=a.map(key), bk=b.map(key);
+  const table=Array.from({length:a.length+1},()=>new Uint32Array(b.length+1));
+  for(let i=a.length-1;i>=0;i--) for(let j=b.length-1;j>=0;j--)
+    table[i][j]=ak[i]===bk[j] ? table[i+1][j+1]+1 : Math.max(table[i+1][j],table[i][j+1]);
+  let i=0,j=0; const out=[];
+  while(i<a.length || j<b.length){
+    if(i<a.length && j<b.length && ak[i]===bk[j]) {out.push({...b[j++],change:''});i++;}
+    else if(i<a.length && (j===b.length || table[i+1][j]>=table[i][j+1])) out.push({...a[i++],change:'del'});
+    else out.push({...b[j++],change:'ins'});
+  }
+  return out;
+}
+
+// Unicode 코드포인트 단위 Myers diff: 동일한 부분은 일반 텍스트로 유지한다.
+function characterDiff(before,after){
+  const a=Array.from(before), b=Array.from(after);
+  let start=0,tail=0;
+  while(start<a.length && start<b.length && a[start]===b[start])start++;
+  while(tail<a.length-start && tail<b.length-start && a[a.length-1-tail]===b[b.length-1-tail])tail++;
+  const x=a.slice(start,a.length-tail),y=b.slice(start,b.length-tail);
+  const output=[];
+  const push=(change,text)=>{if(!text)return;const last=output.at(-1);if(last?.change===change)last.text+=text;else output.push({change,text});};
+  push('',a.slice(0,start).join(''));
+  if(!x.length)push('ins',y.join(''));
+  else if(!y.length)push('del',x.join(''));
+  else {
+    let v=new Map([[1,0]]), trace=[], done=false;
+    outer: for(let d=0;d<=x.length+y.length;d++){
+      trace.push(new Map(v));
+      for(let k=-d;k<=d;k+=2){
+        let i=(k===-d || (k!==d && (v.get(k-1)??-Infinity)<(v.get(k+1)??-Infinity))) ? (v.get(k+1)||0) : (v.get(k-1)||0)+1;
+        let j=i-k;
+        while(i<x.length && j<y.length && x[i]===y[j]){i++;j++;}
+        v.set(k,i);
+        if(i>=x.length && j>=y.length){done=true;break outer;}
+      }
+      // 큰 전체 교체는 선형 공간 LCS로 처리해 메모리 폭증을 방지한다.
+      if(d>=400){trace=null;break;}
+    }
+    if(done){
+      let i=x.length,j=y.length;const reverse=[];
+      for(let d=trace.length-1;d>=0;d--){
+        const vv=trace[d],k=i-j;
+        const pk=(k===-d || (k!==d && (vv.get(k-1)??-Infinity)<(vv.get(k+1)??-Infinity)))?k+1:k-1;
+        const pi=vv.get(pk)||0,pj=pi-pk;
+        while(i>pi && j>pj){reverse.push({change:'',text:x[--i]});j--;}
+        if(d===0)break;
+        if(i===pi)reverse.push({change:'ins',text:y[--j]});
+        else reverse.push({change:'del',text:x[--i]});
+      }
+      reverse.reverse().forEach(r=>push(r.change,r.text));
+    } else {
+      const scores=(aa,bb)=>{
+        let prev=new Uint32Array(bb.length+1);
+        for(const c of aa){const cur=new Uint32Array(bb.length+1);for(let j=1;j<=bb.length;j++)cur[j]=c===bb[j-1]?prev[j-1]+1:Math.max(prev[j],cur[j-1]);prev=cur;}
+        return prev;
+      };
+      const solve=(aa,bb)=>{
+        if(!aa.length){push('ins',bb.join(''));return;}
+        if(!bb.length){push('del',aa.join(''));return;}
+        if(aa.length===1){const at=bb.indexOf(aa[0]);if(at<0){push('del',aa[0]);push('ins',bb.join(''));}else{push('ins',bb.slice(0,at).join(''));push('',aa[0]);push('ins',bb.slice(at+1).join(''));}return;}
+        const mid=aa.length>>1,l=scores(aa.slice(0,mid),bb),r=scores(aa.slice(mid).reverse(),bb.slice().reverse());
+        let split=0,best=-1;for(let j=0;j<=bb.length;j++){const n=l[j]+r[bb.length-j];if(n>best){best=n;split=j;}}
+        solve(aa.slice(0,mid),bb.slice(0,split));solve(aa.slice(mid),bb.slice(split));
+      };
+      solve(x,y);
+    }
+  }
+  push('',tail?a.slice(a.length-tail).join(''):'');
+  return output;
+}
+function revisionHtml(runs){
+  return runs.map(r=>{
+    const style=r.change==='del'?'color:#b42318;text-decoration:line-through;background:#fff0ee;':r.change==='ins'?'color:#b42318;text-decoration:underline;background:#fff0ee;':'';
+    return `<span style="${style}">${escapeHtml(r.text)}</span>`;
+  }).join('');
+}
+// 변경된 문단 묶음 내부를 글자 단위로 비교하고 문단 기호도 별도로 추적한다.
+function revisionParagraphs(){
+  const rows=revisionRows(),out=[];
+  for(let i=0;i<rows.length;){
+    if(!rows[i].change){out.push({...rows[i],runs:[{change:'',text:rows[i].text}],mark:''});i++;continue;}
+    const block=[];while(i<rows.length && rows[i].change)block.push(rows[i++]);
+    const old=block.filter(r=>r.change==='del'),now=block.filter(r=>r.change==='ins');
+    const diffs=characterDiff(old.map(r=>r.text+'\n').join(''),now.map(r=>r.text+'\n').join(''));
+    let oi=0,ni=0,runs=[];
+    for(const d of diffs){
+      const parts=d.text.split('\n');
+      parts.forEach((part,index)=>{
+        if(part)runs.push({change:d.change,text:part});
+        if(index<parts.length-1){
+          const format=d.change==='del'?old[oi]:now[ni];
+          out.push({...format,runs,mark:d.change});runs=[];
+          if(d.change!=='ins')oi++;
+          if(d.change!=='del')ni++;
+        }
+      });
+    }
+    if(runs.length)out.push({indent:true,runs,mark:''});
+  }
+  return out;
+}
+function buildTrackedDocumentXml(){
+  let id=0;
+  const attrs=()=>`w:id="${id++}" w:author="작성자" w:date="${xmlEsc(state.tracking.date)}"`;
+  const body=revisionParagraphs().map(row=>{
+    let p=para('',row.indent,row.center);
+    if(row.mark)p=p.replace('</w:rPr></w:pPr>',`<w:${row.mark} ${attrs()}/></w:rPr></w:pPr>`);
+    const runs=row.runs.map(r=>{
+      const tag=r.change==='del'?'delText':'t';
+      const run=`<w:r><w:rPr><w:rFonts w:ascii="바탕체" w:eastAsia="바탕체" w:hAnsi="바탕체"/><w:sz w:val="24"/></w:rPr><w:${tag} xml:space="preserve">${xmlEsc(r.text)}</w:${tag}></w:r>`;
+      return r.change?`<w:${r.change} ${attrs()}>${run}</w:${r.change}>`:run;
+    }).join('');
+    return p.replace('</w:p>',runs+'</w:p>');
+  }).join('');
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${body}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1701" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr></w:body></w:document>`;
+}
+document.getElementById('btnTrack').addEventListener('click',toggleTracking);
+document.getElementById('btnAccept').addEventListener('click',()=>{
+  if(!state.tracking)return;
+  if(!confirm('모든 변경을 수락하고 현재 내용을 새 기준본으로 사용할까요?'))return;
+  const enabled=trackingOn();state.tracking=null;beginTracking();if(!enabled)toggleTracking();
+});
+document.getElementById('btnReject').addEventListener('click',()=>{
+  if(!state.tracking)return;
+  if(!confirm('추적 시작 이후의 모든 변경을 되돌릴까요?'))return;
+  reconcilePausedTracking();const enabled=trackingOn();
+  const base=JSON.parse(JSON.stringify(state.tracking.base));
+  Object.assign(state,base);state.tracking=null;
+  chkBlank.checked=state.settings.blankBetween!==false;
+  chkPrefixNl.checked=state.settings.prefixNewline!==false;
+  applySticky();render();beginTracking();if(!enabled)toggleTracking();
+});
+
+function addIndependentAfter(node){
+  if(state.secondIndependentId){const legacy=findNode(state.secondIndependentId);if(legacy)legacy.afterIndependentId=state.claims[0].id;state.secondIndependentId=null;}
+  const c=newClaim('plain','');
+  // 기존에 같은 항 뒤에 삽입했던 항은 새 항 다음으로 연결한다.
+  state.claims.filter(n=>n.afterIndependentId===node.id).forEach(n=>n.afterIndependentId=c.id);
+  c.afterIndependentId=node.id;
+  state.claims.splice(state.claims.indexOf(node)+1,0,c);render();
+}
+function baselineBody(node){
+  const search=ns=>{for(const n of ns){if(n.id===node.id)return n;const r=search(n.children);if(r)return r;}};
+  return search(state.tracking?.base.claims||[])?.body||'';
+}
+function liveText(root){
+  if(root.nodeType===3)return root.textContent;
+  if(root.nodeType!==1 && root.nodeType!==11)return '';
+  if(root.nodeType===1 && root.matches('[data-change="del"]'))return '';
+  if(root.nodeName==='BR')return '\n';
+  return [...root.childNodes].map(liveText).join('');
+}
+function editorSelection(el){
+  const sel=getSelection();if(!sel.rangeCount || !el.contains(sel.anchorNode)||!el.contains(sel.focusNode))return el.savedSelection||[0,0];
+  const offset=(n,o)=>{const r=document.createRange();r.selectNodeContents(el);r.setEnd(n,o);return liveText(r.cloneContents()).length;};
+  return [offset(sel.anchorNode,sel.anchorOffset),offset(sel.focusNode,sel.focusOffset)].sort((a,b)=>a-b);
+}
+function editorCaret(el,pos){
+  const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n,last;
+  while(n=w.nextNode()){if(n.parentElement.closest('[data-change="del"]'))continue;last=n;if(pos<=n.length){const r=document.createRange();r.setStart(n,pos);r.collapse(true);const s=getSelection();s.removeAllRanges();s.addRange(r);return;}pos-=n.length;}
+  const r=document.createRange();r.selectNodeContents(el);r.collapse(false);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+}
+function paintEditor(el,node,pos){
+  reconcilePausedTracking();
+  const runs=state.tracking&&revisionMarkupVisible()?characterDiff(baselineBody(node),node.body):[{change:'',text:node.body}];
+  el.replaceChildren();
+  runs.forEach(r=>{if(r.change){const span=document.createElement('span');span.dataset.change=r.change;span.textContent=r.text;if(r.change==='del')span.setAttribute('contenteditable','false');el.append(span);}else el.append(document.createTextNode(r.text));});
+  // A trailing text node provides a caret position after a deletion.
+  el.append(document.createTextNode(''));
+  if(pos!==undefined)editorCaret(el,pos);
+  syncRevisionMargin(el.closest('.card'),node);
+}
+function moveCommentAnchors(node,start,end,len){
+  const shift=p=>p<=start?p:p>=end?p+len-(end-start):start+len;
+  (node.comments||[]).forEach(c=>{c.start=shift(c.start);c.end=Math.max(c.start,shift(c.end));});
+}
+function createClaimEditor(node){
+  const el=document.createElement('div');el.className='claim-editor doc-serif';el.setAttribute('contenteditable','true');el.setAttribute('role','textbox');el.setAttribute('aria-label','청구항 본문');el.setAttribute('aria-multiline','true');el.dataset.placeholder='본문 입력…';
+  let composing=false,compBefore='',history=[],future=[];
+  const snapshot=()=>({body:node.body,comments:JSON.parse(JSON.stringify(node.comments||[])),pos:editorSelection(el)[1]});
+  const remember=()=>{history.push(snapshot());future=[];};
+  const replace=(start,end,text)=>{remember();moveCommentAnchors(node,start,end,text.length);node.body=node.body.slice(0,start)+text+node.body.slice(end);paintEditor(el,node,start+text.length);};
+  const undo=redo=>{const from=redo?future:history,to=redo?history:future;if(!from.length)return;to.push(snapshot());const old=from.pop();node.body=old.body;node.comments=old.comments;paintEditor(el,node,old.pos);};
+  el.addEventListener('beforeinput',e=>{
+    if(composing||e.isComposing||e.inputType==='insertCompositionText')return;
+    let [a,b]=editorSelection(el),t=e.inputType;
+    if(t==='historyUndo'||t==='historyRedo'){e.preventDefault();undo(t==='historyRedo');return;}
+    if(t.startsWith('delete')){
+      e.preventDefault();if(a===b){const bounds=[...new Intl.Segmenter('ko',{granularity:'grapheme'}).segment(node.body)].map(x=>x.index).concat(node.body.length);
+      if(t.includes('Backward'))a=bounds.filter(x=>x<a).at(-1)??0;else b=bounds.find(x=>x>b)??node.body.length;}
+      replace(a,b,'');return;
+    }
+    if(t==='insertText'||t==='insertParagraph'||t==='insertLineBreak'||t==='insertReplacementText'){
+      e.preventDefault();replace(a,b,t==='insertParagraph'||t==='insertLineBreak'?'\n':e.data||'');
+    }else if(t.startsWith('format'))e.preventDefault();
+  });
+  el.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&['z','y'].includes(e.key.toLowerCase())){e.preventDefault();undo(e.key.toLowerCase()==='y'||e.shiftKey);}});
+  el.addEventListener('paste',e=>{e.preventDefault();const [a,b]=editorSelection(el);replace(a,b,e.clipboardData.getData('text/plain').replace(/\r\n?/g,'\n'));});
+  el.addEventListener('drop',e=>e.preventDefault());
+  el.addEventListener('copy',e=>{e.preventDefault();const [a,b]=editorSelection(el);e.clipboardData.setData('text/plain',node.body.slice(a,b));});
+  el.addEventListener('cut',e=>{e.preventDefault();const [a,b]=editorSelection(el);e.clipboardData.setData('text/plain',node.body.slice(a,b));replace(a,b,'');});
+  el.addEventListener('compositionstart',()=>{remember();composing=true;compBefore=node.body;});
+  const readNative=()=>{const pos=editorSelection(el)[1],value=liveText(el);let a=0,b=compBefore.length,c=value.length;while(a<b&&a<c&&compBefore[a]===value[a])a++;while(b>a&&c>a&&compBefore[b-1]===value[c-1]){b--;c--;}moveCommentAnchors(node,a,b,c-a);node.body=value;paintEditor(el,node,pos);};
+  el.addEventListener('compositionend',()=>{composing=false;readNative();});
+  el.addEventListener('input',()=>{if(!composing && liveText(el)!==node.body){compBefore=node.body;remember();readNative();}});
+  ['keyup','mouseup','blur'].forEach(name=>el.addEventListener(name,()=>el.savedSelection=editorSelection(el)));
+  paintEditor(el,node);return el;
+}
+function applyCommentAuthorToAll(name){
+  state.settings.commentAuthor=name;
+  const update=nodes=>nodes.forEach(n=>{
+    (n.comments||[]).forEach(c=>{c.author=name;delete c.pendingAuthor;});
+    update(n.children||[]);
+  });
+  update(state.claims);
+  if(state.tracking?.base){
+    state.tracking.base.settings.commentAuthor=name;
+    update(state.tracking.base.claims);
+  }
+  document.querySelectorAll('.comment-author').forEach(input=>{input.value=name;});
+}
+function createCommentPanel(node,card){
+  const panel=document.createElement('div');panel.className='comment-panel';
+  const add=btn('＋ 메모',()=>{const editor=card.querySelector('.claim-editor');const [start,end]=editorSelection(editor);(node.comments??=[]).push({id:'m'+Date.now()+Math.random().toString(16).slice(2),start,end,text:'',author:state.settings.commentAuthor||'작성자',draft:true,date:new Date().toISOString()});refresh();panel.querySelector('.comment-item:last-child textarea').focus();});
+  add.addEventListener('mousedown',e=>{card.querySelector('.claim-editor').savedSelection=editorSelection(card.querySelector('.claim-editor'));e.preventDefault();});
+  add.title='본문을 선택한 뒤 메모를 달 수 있습니다. 선택하지 않으면 커서 위치에 메모를 답니다.';
+  panel.addButton=add;const list=document.createElement('div');list.className='comment-list';panel.append(list);
+  function refresh(){list.replaceChildren();panel.hidden=!(node.comments||[]).length;(node.comments||[]).forEach(c=>{
+    const item=document.createElement('div');item.className='comment-item';
+    const top=document.createElement('div');top.className='comment-top';item.append(top);
+    const status=document.createElement('span');status.className='comment-status';status.textContent=c.draft?'작성 중':'메모';top.append(status);
+    const quote=document.createElement('div');quote.className='comment-quote';quote.textContent=node.body.slice(c.start,c.end)||'이 청구항에 대한 메모';item.append(quote);
+    const authorLabel=document.createElement('label');authorLabel.className='comment-author-label';authorLabel.textContent='작성자 ';
+    const author=document.createElement('input');author.type='text';author.className='comment-author';author.value=c.pendingAuthor??c.author??'작성자';author.placeholder='작성자 이름';author.title='등록·수정 저장 시 모든 메모의 작성자에 적용됩니다';author.setAttribute('aria-label','메모 작성자');author.addEventListener('input',()=>c.pendingAuthor=author.value);authorLabel.append(author);top.append(authorLabel);
+    const text=document.createElement('textarea');text.value=c.pendingText??c.text;text.placeholder='검토 의견을 남겨 주세요…';text.setAttribute('aria-label','메모 내용');text.addEventListener('input',()=>{c.pendingText=text.value;autoGrow(text);});item.append(text);requestAnimationFrame(()=>autoGrow(text));
+    const actions=document.createElement('div');actions.className='comment-actions';item.append(actions);
+    const save=btn(c.draft?'등록':'수정 저장',()=>{
+      if(!text.value.trim()){toast('메모 내용을 입력해 주세요');text.focus();return;}
+      if(!author.value.trim()){toast('작성자 이름을 입력해 주세요');author.focus();return;}
+      const isNew=c.draft;c.text=text.value;c.author=author.value.trim();c.draft=false;delete c.pendingText;delete c.pendingAuthor;
+      applyCommentAuthorToAll(c.author);refresh();toast(isNew?'메모를 등록했습니다 — 작성자 이름은 전체 메모에 적용됩니다':'메모를 수정했습니다 — 작성자 이름은 전체 메모에 적용됩니다');
+    },'mini primary');actions.append(save);
+    actions.prepend(btn('메모 삭제',()=>{node.comments=node.comments.filter(x=>x.id!==c.id);refresh();},'mini danger'));list.append(item);
+  });}refresh();return panel;
+}
+
+const WNS='http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+function wordText(root,version='accepted'){
+  if(root.nodeType!==1)return '';
+  const name=root.localName;
+  if((version==='accepted'&&['del','moveFrom'].includes(name))||(version==='original'&&['ins','moveTo'].includes(name)))return '';
+  if(name==='t'||name==='delText')return root.textContent;
+  if(name==='tab')return '\t';if(name==='br'||name==='cr')return '\n';
+  return [...root.children].map(n=>wordText(n,version)).join('');
+}
+function wordParagraphs(dom,version){
+  const out=[];let pending='';
+  for(const p of dom.getElementsByTagNameNS(WNS,'p')){
+    const txt=wordText(p,version);const mark=[...p.children].find(n=>n.localName==='pPr')?.getElementsByTagNameNS(WNS,'rPr')[0];
+    const joined=mark&&[...mark.children].some(n=>n.localName===(version==='accepted'?'del':'ins'));
+    pending+=txt;if(!joined){out.push(pending);pending='';}
+  }if(pending)out.push(pending);return out;
+}
+function exportComments(){
+  let offset=0;const all=[];
+  const rows=documentRows();const text=rows.map(r=>r.text).join('\n');
+  flatten().forEach(e=>{const header=`【청구항 ${e.number}】\n`;const at=text.indexOf(header,offset);if(at<0)return;const full=claimFullText(e.node);const bodyAt=full.indexOf(e.node.body);const start=at+header.length+Math.max(0,bodyAt);offset=at+header.length+full.length;
+    (e.node.comments||[]).filter(c=>!c.draft).forEach(c=>all.push({...c,id:String(all.length),start:start+Math.min(c.start,e.node.body.length),end:start+Math.min(c.end,e.node.body.length)}));
+  });return all;
+}
+function attachWordComments(xml,comments){
+  if(!comments.length)return xml;
+  const dom=new DOMParser().parseFromString(xml,'application/xml');
+  const points=[];let offset=0;
+  for(const p of dom.getElementsByTagNameNS(WNS,'p')){
+    const ts=[...p.getElementsByTagNameNS(WNS,'t')].filter(t=>!closestWord(t,'del'));
+    for(const t of ts){points.push({t,start:offset,end:offset+t.textContent.length,p});offset+=t.textContent.length;}
+    if(!ts.length)points.push({t:null,start:offset,end:offset,p});
+    const ppr=[...p.children].find(n=>n.localName==='pPr');const mark=ppr?.getElementsByTagNameNS(WNS,'rPr')[0];
+    if(!mark?.getElementsByTagNameNS(WNS,'del').length)offset++;
+  }
+  const events=[];comments.forEach(c=>{events.push({pos:c.start,type:'commentRangeStart',c},{pos:c.end,type:'commentRangeEnd',c});});
+  // Split from right to left so earlier text offsets remain valid.
+  events.sort((a,b)=>b.pos-a.pos||(a.type==='commentRangeEnd'?-1:1));
+  for(const ev of events){const point=points.find(x=>ev.pos>=x.start&&ev.pos<=x.end)||points.at(-1);if(!point)continue;
+    const marker=dom.createElementNS(WNS,'w:'+ev.type);marker.setAttributeNS(WNS,'w:id',ev.c.id);
+    let container=point.p,ref=null;
+    if(point.t){const t=point.t,run=t.parentNode;const n=Math.max(0,Math.min(ev.pos-point.start,t.textContent.length));
+      const right=run.cloneNode(true);const rt=right.getElementsByTagNameNS(WNS,'t')[0];rt.textContent=t.textContent.slice(n);t.textContent=t.textContent.slice(0,n);run.parentNode.insertBefore(right,run.nextSibling);container=run.parentNode;ref=right;
+    }
+    container.insertBefore(marker,ref);
+    if(ev.type==='commentRangeEnd'){const r=dom.createElementNS(WNS,'w:r');const cr=dom.createElementNS(WNS,'w:commentReference');cr.setAttributeNS(WNS,'w:id',ev.c.id);r.append(cr);container.insertBefore(r,ref);}
+  }
+  return new XMLSerializer().serializeToString(dom);
+}
+function closestWord(n,name){for(let p=n.parentNode;p?.nodeType===1;p=p.parentNode)if(p.namespaceURI===WNS&&p.localName===name)return p;return null;}
+function commentsXml(comments){return `<w:comments xmlns:w="${WNS}">`+comments.map(c=>`<w:comment w:id="${c.id}" w:author="${xmlEsc(c.author||'작성자')}" w:date="${xmlEsc(c.date||new Date().toISOString())}">${c.text.split('\n').map(t=>para(t,false)).join('')}</w:comment>`).join('')+'</w:comments>';}
+async function importReviewData(zip,xml,byNum,found){
+  const dom=new DOMParser().parseFromString(xml,'application/xml');
+  const original=wordParagraphs(dom,'original');
+  const changed=dom.getElementsByTagNameNS(WNS,'ins').length||dom.getElementsByTagNameNS(WNS,'del').length||dom.getElementsByTagNameNS(WNS,'moveFrom').length||dom.getElementsByTagNameNS(WNS,'moveTo').length;
+  if(changed){
+    const base=snapshotWork();let current=null;const before=new Map();
+    // Use accepted heading identities to associate old body with its current claim.
+    for(const p of dom.getElementsByTagNameNS(WNS,'p')){const accepted=wordText(p,'accepted'),old=wordText(p,'original');const m=accepted.match(/^【\s*청구항\s*(\d+)\s*】/);if(m){current=+m[1];before.set(current,'');}else if(current!==null){const pr=[...p.children].find(n=>n.localName==='pPr');const mark=pr?.getElementsByTagNameNS(WNS,'rPr')[0];before.set(current,before.get(current)+old+(mark?.getElementsByTagNameNS(WNS,'ins').length?'':'\n'));}}
+    const assign=ns=>ns.forEach(n=>{const num=[...byNum].find(([k,v])=>v.id===n.id)?.[0];let text=(before.get(num)||'').replace(/\n+$/,'');if(n.kind==='dep')text=text.replace(/^(?:제\s*\d+\s*항|청구항\s*\d+)[^\n]*?(?:있어서|대하여),[ \t]*\n?/,'');n.body=text;assign(n.children);});assign(base.claims);
+    state.tracking={base,rows:original.map((text,i)=>({text,...(/^【\s*청구범위/.test(text)?{center:true}:/^【\s*청구항/.test(text)?{}:{indent:true})})),date:new Date().toISOString()};
+  }else state.tracking=null;
+  const settingsEntry=zip.file('word/settings.xml');
+  if(settingsEntry){
+    const settingsDom=new DOMParser().parseFromString(await settingsEntry.async('string'),'application/xml');
+    const track=settingsDom.getElementsByTagNameNS(WNS,'trackRevisions')[0];
+    const enabled=!!track&&!['false','0','off'].includes(track.getAttributeNS(WNS,'val'));
+    if(enabled&&!state.tracking)state.tracking={base:snapshotWork(),rows:documentRows(),date:new Date().toISOString()};
+    if(state.tracking){state.tracking.enabled=enabled;state.tracking.paused=enabled?null:{work:snapshotWork(),rows:documentRows()};}
+  }
+  const entry=zip.file('word/comments.xml');if(!entry)return;
+  const cd=new DOMParser().parseFromString(await entry.async('string'),'application/xml');const comments=new Map([...cd.getElementsByTagNameNS(WNS,'comment')].map(c=>[c.getAttributeNS(WNS,'id'),{id:'m'+c.getAttributeNS(WNS,'id'),text:[...c.getElementsByTagNameNS(WNS,'p')].map(p=>wordText(p)).join('\n'),author:c.getAttributeNS(WNS,'author'),date:c.getAttributeNS(WNS,'date')} ]));
+  let number=null,offset=0;const ranges=new Map(),bodyStarts=new Map();
+  for(const p of dom.getElementsByTagNameNS(WNS,'p')){
+    const text=wordText(p),m=text.match(/^【\s*청구항\s*(\d+)\s*】/);if(m){number=+m[1];offset=0;continue;}if(number===null)continue;
+    const node=byNum.get(number);if(!node)continue;
+    if(!bodyStarts.has(number)){const prefix=node.kind==='dep'?text.match(/^(?:제\s*\d+\s*항|청구항\s*\d+).*?(?:있어서|대하여),[ \t]*/)?.[0]||'':'';bodyStarts.set(number,prefix.length+(prefix===text?1:0));}
+    const visit=n=>{if(n.nodeType!==1)return;if(['del','moveFrom'].includes(n.localName))return;
+      const id=n.getAttributeNS(WNS,'id');if(n.localName==='commentRangeStart')ranges.set(id,{number,start:offset});if(n.localName==='commentRangeEnd'){const r=ranges.get(id);if(r)r.end=number===r.number?offset:(byNum.get(r.number)?.body.length||r.start)+(bodyStarts.get(r.number)||0);}
+      if(['t','tab','br','cr'].includes(n.localName)){offset+=wordText(n).length;return;}[...n.children].forEach(visit);
+    };visit(p);offset++;
+  }
+  for(const [id,r] of ranges){const n=byNum.get(r.number),c=comments.get(id);if(!n||!c)continue;const shift=bodyStarts.get(r.number)||0;(n.comments??=[]).push({...c,start:Math.max(0,Math.min(n.body.length,r.start-shift)),end:Math.max(0,Math.min(n.body.length,(r.end??r.start)-shift))});}
+}
+
+function trackingOn(){return !!state.tracking && state.tracking.enabled!==false;}
+function toggleTracking(){
+  const nextEnabled=!trackingOn();
+  if(!state.tracking){beginTracking();return;}
+  reconcilePausedTracking();
+  state.tracking.enabled=nextEnabled;
+  state.tracking.paused=nextEnabled?null:{work:snapshotWork(),rows:documentRows()};
+  syncTracking();toast(nextEnabled?'변경 추적 ON':'변경 추적 OFF — 기존 기록은 유지됩니다');
+}
+// Apply untracked edits to both the final text and original text, preserving earlier revisions.
+function rebaseUntracked(base,before,after){
+  if(before===after)return base;
+  const map=[],boundary=[0];let bi=0,ci=0;
+  for(const r of characterDiff(base,before)){
+    if(r.change==='del'){bi+=r.text.length;boundary[ci]=bi;continue;}
+    for(let i=0;i<r.text.length;i++){map[ci]=r.change==='ins'?null:bi;if(r.change!=='ins')bi++;ci++;boundary[ci]=bi;}
+  }
+  const removed=new Set(),inserts=new Map();ci=0;
+  for(const r of characterDiff(before,after)){
+    if(r.change==='ins'){const at=boundary[ci]??base.length;inserts.set(at,(inserts.get(at)||'')+r.text);}
+    else {for(let i=0;i<r.text.length;i++,ci++)if(r.change==='del'&&map[ci]!=null)removed.add(map[ci]);}
+  }
+  let out='';for(let i=0;i<=base.length;i++){out+=inserts.get(i)||'';if(i<base.length&&!removed.has(i))out+=base[i];}return out;
+}
+function claimMap(nodes){const m=new Map();const visit=ns=>ns.forEach(n=>{m.set(n.id,n);visit(n.children||[]);});visit(nodes);return m;}
+function rowsForWork(work){const saved={claims:state.claims,settings:state.settings,secondIndependentId:state.secondIndependentId};try{Object.assign(state,work);return documentRows();}finally{Object.assign(state,saved);}}
+function reconcilePausedTracking(){
+  const tr=state.tracking;if(!tr||tr.enabled!==false||!tr.paused)return;
+  const before=tr.paused.work,now=snapshotWork();
+  const bm=claimMap(tr.base.claims),pm=claimMap(before.claims),nm=claimMap(now.claims);
+  for(const [id,n] of nm){const prev=pm.get(id),base=bm.get(id);if(base&&prev)base.body=rebaseUntracked(base.body,prev.body,n.body);}
+  // Reflect structural edits made while OFF, without dropping earlier tracked deletions.
+  const remove=(ns,id)=>{for(let i=ns.length-1;i>=0;i--){if(ns[i].id===id)ns.splice(i,1);else remove(ns[i].children,id);}};
+  for(const id of pm.keys())if(!nm.has(id))remove(tr.base.claims,id);
+  const add=(ns,parent)=>ns.forEach((n,i)=>{if(!pm.has(n.id)){const target=parent?bm.get(parent)?.children:tr.base.claims;if(target){const clone=JSON.parse(JSON.stringify(n));target.splice(Math.min(i,target.length),0,clone);claimMap([clone]).forEach((v,k)=>bm.set(k,v));}}else add(n.children,n.id);});add(now.claims,null);
+  const currentRows=documentRows();const text=rebaseUntracked(tr.rows.map(r=>r.text).join('\n'),tr.paused.rows.map(r=>r.text).join('\n'),currentRows.map(r=>r.text).join('\n'));
+  tr.rows=text.split('\n').map(text=>({text,...(/^【청구범위】$/.test(text)?{center:true}:/^【청구항 \d+】$/.test(text)?{}:{indent:true})}));
+  tr.paused={work:now,rows:currentRows};
+}
+let reviewSelection=null;
+function rememberReviewSelection(){
+  const sel=getSelection();if(!sel.rangeCount)return;
+  if(sel.isCollapsed){const el=sel.anchorNode?.nodeType===1?sel.anchorNode:sel.anchorNode?.parentElement;if(el?.closest('.claim-editor'))reviewSelection=null;return;}
+  const range=sel.getRangeAt(0),hits=[];
+  document.querySelectorAll('.claim-editor').forEach(el=>{
+    if(!range.intersectsNode(el))return;
+    const bounds=document.createRange();bounds.selectNodeContents(el);
+    const offset=(n,o)=>{const r=document.createRange();r.selectNodeContents(el);r.setEnd(n,o);return r.toString().length;};
+    let start=el.contains(range.startContainer)?offset(range.startContainer,range.startOffset):0;
+    let end=el.contains(range.endContainer)?offset(range.endContainer,range.endOffset):bounds.toString().length;
+    if(!revisionMarkupVisible()&&state.tracking){const node=findNode(el.closest('.card').dataset.id);start=markupOffset(node,start);end=markupOffset(node,end);}
+    if(end>start)hits.push({id:el.closest('.card').dataset.id,start,end,body:findNode(el.closest('.card').dataset.id).body});
+  });
+  if(hits.length)reviewSelection=hits;
+}
+function applySelectedReview(accept){
+  reconcilePausedTracking();if(!state.tracking||!reviewSelection?.length){toast('본문에서 변경된 부분을 먼저 선택해 주세요');return;}
+  let count=0;const bm=claimMap(state.tracking.base.claims);
+  for(const hit of reviewSelection){const node=findNode(hit.id);if(!node||node.body!==hit.body)continue;let base=bm.get(node.id);
+    let pos=0,newBase='',newBody='';
+    for(const r of characterDiff(base?.body||'',node.body)){
+      for(const char of r.text){const selected=pos<hit.end&&pos+char.length>hit.start;pos+=char.length;
+        if(selected&&r.change){count++;if((accept&&r.change==='ins')||(!accept&&r.change==='del')){newBase+=char;newBody+=char;}}
+        else {if(r.change!=='ins')newBase+=char;if(r.change!=='del')newBody+=char;}
+      }
+    }
+    if(!base&&newBase){base={...JSON.parse(JSON.stringify(node)),body:newBase,children:[]};state.tracking.base.claims.push(base);bm.set(node.id,base);}
+    if(base)base.body=newBase;
+    if(node.body!==newBody){let a=0,b=node.body.length,c=newBody.length;while(a<b&&a<c&&node.body[a]===newBody[a])a++;while(b>a&&c>a&&node.body[b-1]===newBody[c-1]){b--;c--;}moveCommentAnchors(node,a,b,c-a);node.body=newBody;}
+  }
+  if(!count){toast('선택한 영역에 처리할 변경이 없습니다');return;}
+  state.tracking.rows=rowsForWork(state.tracking.base);
+  if(!trackingOn())state.tracking.paused={work:snapshotWork(),rows:documentRows()};
+  reviewSelection=null;render();toast(accept?'선택 영역의 변경을 수락했습니다':'선택 영역의 변경을 되돌렸습니다');
+}
+document.addEventListener('selectionchange',rememberReviewSelection);
+document.getElementById('btnAcceptSelected').addEventListener('click',()=>applySelectedReview(true));
+document.getElementById('btnRejectSelected').addEventListener('click',()=>applySelectedReview(false));
+document.getElementById('reviewMenu').addEventListener('pointerdown',rememberReviewSelection);
+
+
+// Display-only review: uses the same revision paragraphs as the DOCX exporter.
+document.getElementById('btnReviewExpand').addEventListener('click',()=>{
+  const control=document.getElementById('btnReviewExpand'),panel=document.getElementById('reviewActions');
+  panel.hidden=!panel.hidden;control.setAttribute('aria-expanded',String(!panel.hidden));
+  const label=panel.hidden?'검토 도구 펼치기':'검토 도구 접기';control.title=label;control.setAttribute('aria-label',label);
+});
+
+function revisionMarkupVisible(){return state.settings.showRevisionMarkup!==false;}
+function syncRevisionMargin(card,node){
+  if(!card)return;const button=card.querySelector('.revision-margin-toggle');if(!button)return;
+  const changed=!!state.tracking&&baselineBody(node)!==node.body;
+  button.hidden=!changed;button.setAttribute('aria-pressed',String(revisionMarkupVisible()));
+  const label='변경내용 보기';
+  button.title=label;button.setAttribute('aria-label',label);
+}
+function toggleRevisionMarkup(){
+  state.settings.showRevisionMarkup=!revisionMarkupVisible();reviewSelection=null;
+  document.querySelectorAll('.claim-editor').forEach(el=>{const node=findNode(el.closest('.card').dataset.id);if(node)paintEditor(el,node);});
+}
+function markupOffset(node,offset){
+  let visible=0,marked=0;
+  for(const r of characterDiff(baselineBody(node),node.body)){
+    if(r.change==='del'){marked+=r.text.length;continue;}
+    if(visible+r.text.length>=offset)return marked+offset-visible;
+    visible+=r.text.length;marked+=r.text.length;
+  }return marked;
+}
+
+// Custom XML preserves editor-only state without changing the visible Word document.
+const WORK_NS='urn:claim-tools:work-state:v1';
+async function wordSemanticSignature(zip){
+  const parse=async name=>{const f=zip.file(name);return f?new DOMParser().parseFromString(await f.async('string'),'application/xml'):null;};
+  const doc=await parse('word/document.xml'),comments=await parse('word/comments.xml'),settings=await parse('word/settings.xml');
+  if(!doc||doc.getElementsByTagName('parsererror').length)throw Error('Invalid document');
+  const markers=[];let offset=0;
+  function walk(n){if(n.nodeType!==1)return;const tag=n.localName;
+    if(['t','delText','tab','br','cr'].includes(tag)){offset+=wordText(n,'original').length||wordText(n).length;return;}
+    if(['commentRangeStart','commentRangeEnd','commentReference','ins','del','moveFrom','moveTo'].includes(tag))markers.push([tag,offset,n.getAttributeNS(WNS,'id'),n.getAttributeNS(WNS,'author'),n.getAttributeNS(WNS,'date')]);
+    [...n.children].forEach(walk);if(tag==='p')offset++;
+  }walk(doc.documentElement);
+  const cs=comments?[...comments.getElementsByTagNameNS(WNS,'comment')].map(c=>[c.getAttributeNS(WNS,'id'),c.getAttributeNS(WNS,'author'),c.getAttributeNS(WNS,'date'),[...c.getElementsByTagNameNS(WNS,'p')].map(p=>wordText(p))]):[];
+  const track=settings?.getElementsByTagNameNS(WNS,'trackRevisions')[0];
+  return JSON.stringify({accepted:wordParagraphs(doc,'accepted'),original:wordParagraphs(doc,'original'),markers,comments:cs,tracking:!!track&&!['false','0','off'].includes(track.getAttributeNS(WNS,'val'))});
+}
+async function storeWorkInWord(zip){
+  reconcilePausedTracking();
+  const work=JSON.parse(JSON.stringify(state));
+  const data={format:'claim-tools',version:1,work,signature:await wordSemanticSignature(zip),claims:flatten().map(e=>({number:e.number,id:e.node.id,fullText:claimFullText(e.node)}))};
+  zip.file('customXml/claimTools.xml',`<?xml version="1.0" encoding="UTF-8"?><work xmlns="${WORK_NS}">${xmlEsc(JSON.stringify(data))}</work>`);
+  const rel=await zip.file('word/_rels/document.xml.rels').async('string');
+  zip.file('word/_rels/document.xml.rels',rel.replace('</Relationships>','<Relationship Id="rIdClaimTools" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXml" Target="../customXml/claimTools.xml"/></Relationships>'));
+}
+function validSavedWork(work){
+  try{
+    const validate=w=>{if(!w||!Array.isArray(w.claims)||!w.settings||typeof w.settings.depPrefix!=='string')throw Error();const ids=new Set(),nodes=[];
+      const visit=(ns,depth)=>{if(depth>100||!Array.isArray(ns))throw Error();ns.forEach(n=>{if(!n||typeof n.id!=='string'||ids.has(n.id)||!Object.hasOwn(KIND_LABEL,n.kind)||typeof n.body!=='string')throw Error();ids.add(n.id);nodes.push(n);if(nodes.length>5000)throw Error();if(n.comments!==undefined&&(!Array.isArray(n.comments)||n.comments.some(c=>typeof c.text!=='string'||!Number.isFinite(c.start)||!Number.isFinite(c.end))))throw Error();visit(n.children,depth+1);});};visit(w.claims,0);
+      const roots=new Map(w.claims.map(n=>[n.id,n]));for(const n of roots.values()){const seen=new Set([n.id]);let x=n;while(x.afterIndependentId&&roots.has(x.afterIndependentId)){if(seen.has(x.afterIndependentId))throw Error();seen.add(x.afterIndependentId);x=roots.get(x.afterIndependentId);}}
+    };validate(work);if(work.tracking){validate(work.tracking.base);if(!Array.isArray(work.tracking.rows)||work.tracking.rows.some(r=>typeof r.text!=='string'))return false;if(work.tracking.paused){validate(work.tracking.paused.work);if(!Array.isArray(work.tracking.paused.rows))return false;}}
+    return true;
+  }catch{return false;}
+}
+async function restoreWorkFromWord(zip){
+  const file=zip.file('customXml/claimTools.xml');if(!file)return false;
+  let data;try{const xml=new DOMParser().parseFromString(await file.async('string'),'application/xml');if(xml.documentElement.namespaceURI!==WORK_NS)return false;data=JSON.parse(xml.documentElement.textContent);if(data.format!=='claim-tools'||data.version!==1||!validSavedWork(data.work))return false;}catch{return false;}
+  zip.claimSavedWork=data;
+  if(data.signature!==await wordSemanticSignature(zip))return false;
+  if(!confirm('Word 파일에 보관된 청구항 구조·변경 기록·메모·설정을 불러올까요? 현재 작업은 교체됩니다.'))return true;
+  const work=data.work;state.claims=work.claims;state.settings=work.settings;state.secondIndependentId=work.secondIndependentId||null;state.tracking=work.tracking||null;
+  const ids=[...claimMap(state.claims).keys(),...claimMap(state.tracking?.base.claims||[]).keys()];SEQ=1+Math.max(0,...ids.map(id=>parseInt(id.slice(1))||0));
+  chkBlank.checked=state.settings.blankBetween!==false;chkPrefixNl.checked=state.settings.prefixNewline!==false;applySticky();reviewSelection=null;render();toast('Word 파일에서 작업 상태를 복원했습니다');return true;
+}
+function restoreUnchangedClaimTypes(zip,found,byNum){
+  const saved=zip.claimSavedWork;if(!saved||!Array.isArray(saved.claims))return;
+  const old=claimMap(saved.work.claims),oldNumber=new Map(saved.claims.map(c=>[c.id,c.number]));
+  // Only restore templates when the entire corresponding claim is unchanged.
+  for(const c of found){const record=saved.claims.find(r=>r.number===c.num&&r.fullText===c.lines.join('\n'));if(!record)continue;const previous=old.get(record.id),node=byNum.get(c.num);if(!previous||!node||node.kind==='dep')continue;
+    if(previous.kind==='medium'){
+      const oldTarget=saved.claims.find(x=>x.id===(previous.targetId||saved.work.claims[0]?.id));
+      const targetFound=found.find(x=>x.num===oldTarget?.number);
+      if(!oldTarget||!targetFound||targetFound.lines.join('\n')!==oldTarget.fullText)continue;
+      node.kind='medium';node.body=previous.body;node.mediumMode=previous.mediumMode;node.targetId=byNum.get(oldNumber.get(oldTarget.id))?.id;
+    }else if(['plain','method','apparatus'].includes(previous.kind))node.kind=previous.kind;
+  }
+  for(const key of ['stickyIndep','showRevisionMarkup','commentAuthor'])if(Object.hasOwn(saved.work.settings,key))state.settings[key]=saved.work.settings[key];
 }
 
 window.addEventListener('beforeunload', e=>{
